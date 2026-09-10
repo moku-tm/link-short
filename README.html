@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>کوتاه‌کننده لینک موکو — کوتاه‌کننده لینک ساده و حرفه‌ای</title>
+    <link rel="stylesheet" href="https://cdn.moku.ir/icon/FontAwesome.Pro.7.3.1/Web/css/all.min.css">
+    <style>
+        @font-face {
+            font-family: 'Arad';
+            src: url('https://cdn.moku.ir/fonts/Arad/Arad-RegularDots4.woff2') format('woff2');
+            font-weight: 400;
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #080c18;
+            --bg2: #0c1222;
+            --bg3: #111827;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.07);
+            --glass-hover: rgba(255, 255, 255, 0.06);
+            --accent: #20c997;
+            --accent-2: #087f5b;
+            --accent-light: #63e6be;
+            --danger: #ff4d6a;
+            --text: #ffffff;
+            --text2: rgba(255, 255, 255, 0.6);
+            --text3: rgba(255, 255, 255, 0.35);
+            --radius: 20px;
+            --radius-sm: 12px;
+            --font: 'Arad', sans-serif;
+            --font-en: 'Arad', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        ::-webkit-scrollbar { width: 7px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        ::-webkit-scrollbar-thumb { background: #20c997; border-radius: 10px; }
+
+        .bg-effects {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.12;
+        }
+
+        .bg-orb-1 { width: 600px; height: 600px; background: var(--accent); top: -200px; right: -150px; animation: orbFloat 22s ease-in-out infinite; }
+        .bg-orb-2 { width: 500px; height: 500px; background: var(--accent-2); bottom: -200px; left: -100px; animation: orbFloat 28s ease-in-out infinite reverse; }
+        .bg-orb-3 { width: 350px; height: 350px; background: var(--accent-light); top: 50%; left: 40%; animation: orbFloat 20s ease-in-out infinite 3s; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.05); }
+            66% { transform: translate(-30px, 20px) scale(0.95); }
+        }
+
+        .bg-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+            background-size: 70px 70px;
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(28px, 4.5vw, 44px);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 15px;
+            color: var(--text2);
+            max-width: 620px;
+            margin: 0 auto 16px;
+            line-height: 2;
+        }
+
+        .hero-author {
+            font-size: 12px;
+            color: var(--text3);
+            margin-bottom: 32px;
+        }
+
+        .hero-author a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .hero-author a:hover {
+            text-decoration: underline;
+        }
+
+        .hero-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 14px;
+            font: 700 13px var(--font);
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: #fff;
+            box-shadow: 0 8px 30px rgba(32, 201, 151, 0.25);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 12px 40px rgba(32, 201, 151, 0.35);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--text);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-hover);
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .btn-github {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text);
+        }
+
+        .btn-github:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .badges {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font: 600 10px var(--font-en);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .badge-php { background: #2b2d42; color: #63e6be; }
+        .badge-mysql { background: #2b2d42; color: #4479a1; }
+        .badge-license { background: #2b2d42; color: #20c997; }
+        .badge-version { background: #2b2d42; color: #20c997; }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .section-sub {
+            font-size: 13px;
+            color: var(--text2);
+            margin-bottom: 32px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .feature-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            transition: all 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            filter: blur(35px);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .feature-card:nth-child(1)::before { background: var(--accent); }
+        .feature-card:nth-child(2)::before { background: var(--accent-2); }
+        .feature-card:nth-child(3)::before { background: var(--accent-light); }
+        .feature-card:nth-child(4)::before { background: var(--danger); }
+        .feature-card:nth-child(5)::before { background: #f59e0b; }
+        .feature-card:nth-child(6)::before { background: #06b6d4; }
+
+        .feature-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 0.15;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .feature-card:nth-child(1) .feature-icon { background: rgba(59,130,246,0.1); color: var(--accent); }
+        .feature-card:nth-child(2) .feature-icon { background: rgba(37,99,235,0.1); color: var(--accent-2); }
+        .feature-card:nth-child(3) .feature-icon { background: rgba(96,165,250,0.1); color: var(--accent-light); }
+        .feature-card:nth-child(4) .feature-icon { background: rgba(255,77,106,0.1); color: var(--danger); }
+        .feature-card:nth-child(5) .feature-icon { background: rgba(245,158,11,0.1); color: #f59e0b; }
+        .feature-card:nth-child(6) .feature-icon { background: rgba(6,182,212,0.1); color: #06b6d4; }
+
+        .feature-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .feature-card p {
+            font-size: 11px;
+            color: var(--text2);
+            line-height: 1.8;
+        }
+
+        .api-section {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .api-section h3 {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .api-section > p {
+            font-size: 12px;
+            color: var(--text2);
+            margin-bottom: 20px;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 10px;
+            color: var(--text3);
+            font-weight: 600;
+        }
+
+        .code-header .method {
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(32, 201, 151, 0.15);
+            color: var(--accent);
+            font-family: var(--font-en);
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .code-body {
+            padding: 14px 16px;
+            font-family: 'Arad';
+            font-size: 12px;
+            line-height: 1.8;
+            direction: ltr;
+            text-align: left;
+            color: var(--text2);
+            overflow-x: auto;
+        }
+
+        .code-body .key { color: var(--accent); }
+        .code-body .str { color: #f59e0b; }
+        .code-body .num { color: var(--accent-2); }
+
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .step-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            transition: all 0.25s;
+        }
+
+        .step-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .step-num {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: inline-grid;
+            place-items: center;
+            font: 800 15px var(--font-en);
+            color: #fff;
+            margin-bottom: 14px;
+        }
+
+        .step-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .step-card p {
+            font-size: 11px;
+            color: var(--text2);
+            line-height: 1.8;
+        }
+
+        .tech-stack {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .tech-item:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .tech-item i {
+            font-size: 14px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--glass-border);
+            margin: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 11px;
+            color: var(--text3);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-author {
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--text2);
+        }
+
+        .footer-author a {
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .install-steps { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .hero { padding: 60px 0 40px; }
+            .hero-buttons { flex-direction: column; }
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+        <div class="bg-grid"></div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <h1>کوتاه‌کننده لینک <span class="gradient">موکو</span></h1>
+            <p>یک کوتاه‌کننده لینک سبک و سریع نوشته‌شده با PHP خالص و MySQL. این پروژه بدون هیچ فریم‌ورکی توسعه داده شده و لینک‌های بلند را به لینک‌های کوتاه ۷ حرفی تبدیل می‌کند.</p>
+            <p class="hero-author">ساخته شده توسط موکو</p>
+            <div class="hero-buttons">
+                <a href="#install" class="btn btn-secondary">
+                    <i class="fa-regular fa-download"></i> نصب سریع
+                </a>
+            </div>
+            <div class="badges">
+                <span class="badge badge-php"><i class="fa-brands fa-php"></i> PHP 8.x</span>
+                <span class="badge badge-mysql"><i class="fa-brands fa-database"></i> MySQL</span>
+                <span class="badge badge-license"><i class="fa-regular fa-shield-check"></i> MIT</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-title">ویژگی‌ها</div>
+            <div class="section-sub">همه چیزی که برای کوتاه کردن لینک نیاز دارید</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-bolt"></i></div>
+                    <h4>کوتاه‌سازی آنی</h4>
+                    <p>با زدن Enter یا کلیک دکمه، لینک فوراً کوتاه می‌شود</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-right-left"></i></div>
+                    <h4>ریدایرکت سریع</h4>
+                    <p>بدون صفحه میانی، مستقیم به آدرس اصلی ریدایرکت می‌شود</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-code"></i></div>
+                    <h4>API ساده</h4>
+                    <p>دریافت اطلاعات لینک با یک GET درخواست ساده</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-palette"></i></div>
+                    <h4>دارک و لایت مود</h4>
+                    <p>دو تم زیبا با قابلیت سوئیچ لحظه‌ای</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-shield"></i></div>
+                    <h4>امنیت کامل</h4>
+                    <p>CSRF, XSS, SQL Injection و Rate Limiting</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fa-regular fa-mobile-screen"></i></div>
+                    <h4>کاملاً ریسپانسیو</h4>
+                    <p>طراحی واکنش‌گرا برای موبایل، تبلت و دسکتاپ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="api">
+        <div class="container">
+            <div class="section-title">API</div>
+            <div class="section-sub">دریافت اطلاعات لینک کوتاه از طریق API</div>
+            <div class="api-section">
+                <h3><i class="fa-regular fa-code" style="color:var(--accent)"></i> مستندات API</h3>
+                <p>بدون نیاز به ثبت‌نام یا کلید API. حداکثر ۳۰ درخواست در هر ۳۰ ثانیه.</p>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="method">GET</span>
+                        <span>/api?short=(link)</span>
+                    </div>
+                    <div class="code-body">
+{
+    <span class="key">"status"</span>: <span class="str">"success"</span>,
+    <span class="key">"data"</span>: {
+        <span class="key">"short_url"</span>: <span class="str">"https://example.com/Ab3xY9z"</span>,
+        <span class="key">"original_url"</span>: <span class="str">"https://example.com/very-long-url"</span>,
+        <span class="key">"clicks"</span>: <span class="num">12</span>,
+        <span class="key">"created_at"</span>: <span class="str">"2024-01-15 10:30:00"</span>
+    }
+}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="install">
+        <div class="container">
+            <div class="section-title">نصب و راه‌اندازی</div>
+            <div class="section-sub">در ۳ مرحله ساده سیستم را راه‌اندازی کنید</div>
+            <div class="install-steps">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h4>آپلود فایل‌ها</h4>
+                    <p>فایل‌ها را در روت هاست آپلود کنید و دسترسی پوشه tmp را ۷۵۵ قرار دهید</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h4>اجرای اینستالر</h4>
+                    <p>به آدرس <b>sitedomain/installer/</b> بروید و اطلاعات را وارد کنید. پس از نصب، پوشه نصب خودکار حذف می‌شود.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h4>تمام!</h4>
+                    <p>سیستم آماده است. شروع به کوتاه کردن لینک‌ها کنید</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+        <div class="container" style="text-align:center;">
+            <div class="section-title">ساخته شده با</div>
+            <div class="tech-stack">
+                <div class="tech-item"><i class="fa-brands fa-php" style="color:#63e6be"></i> PHP</div>
+                <div class="tech-item"><i class="fa-brands fa-database" style="color:#4479a1"></i> MySQL</div>
+                <div class="tech-item"><i class="fa-brands fa-html5" style="color:#e44d26"></i> HTML5</div>
+                <div class="tech-item"><i class="fa-brands fa-css3-alt" style="color:#20c997"></i> CSS3</div>
+                <div class="tech-item"><i class="fa-brands fa-js" style="color:#f7df1e"></i> JavaScript</div>
+                <div class="tech-item"><i class="fa-brands fa-font-awesome" style="color:#339af0"></i> FontAwesome</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-author">ساخته شده توسط موکو</p>
+            <p>ساخته شده با PHP خالص — بدون فریمورک، بدون وابستگی غیرضروری</p>
+            <p style="margin-top:8px">
+                MIT License
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
